@@ -8,6 +8,18 @@
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
 
+html {
+  background-color: white;
+  color: black;
+}
+
+/* Override any dark mode styles */
+html.dark {
+  background-color: white;
+  color: black;
+}
+
+
 .main {
   width: 100vw;
   min-height: 100vh;
@@ -141,7 +153,7 @@
 }
 
 .dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg min-w-[210px] flex flex-col gap-2 justify-end items-end;
 }
 
 .dropdown_link {
