@@ -15,8 +15,9 @@ export default function LoginPage({
   const [password, setPassword] = useState('');
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const router = useRouter();
-  const redirectLink = searchParams.redirect? searchParams.redirect : "/"
-
+  // const redirectLink = searchParams.redirect? searchParams.redirect : "/"
+  const redirectLink = "/"
+  
   function handleLogin(e) {
     e.preventDefault();
 
