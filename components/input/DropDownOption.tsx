@@ -6,7 +6,7 @@ export default function DrownDownOption( { label, id, autoComplete, spanType, op
             {label}
         </label>
                 <div className="mt-2">
-                <select
+                {/* <select
                     id={id}
                     name={id}
                     autoComplete={autoComplete}
@@ -17,7 +17,7 @@ export default function DrownDownOption( { label, id, autoComplete, spanType, op
                     <option>United States</option>
                     <option>Canada</option>
                     <option>Mexico</option>
-                </select>
+                </select> */}
         </div>
     </div>
     );
