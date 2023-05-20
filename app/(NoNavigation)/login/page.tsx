@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from 'react';
 import { browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from "firebase/auth"; 
 import { useRouter } from 'next/navigation';
+import StyledButton from "@components/Button";
 
 export default function LoginPage({
   searchParams,
@@ -14,14 +15,18 @@ export default function LoginPage({
     const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const redirectLinkQuery = Array.isArray(searchParams.redirect_link) ? searchParams.redirect_link[0] : searchParams.redirect_link;
   const redirectLink = redirectLinkQuery? redirectLinkQuery : "/"
+
 
   function handleLogin(e) {
     e.preventDefault();
 
     const auth = getAuth();
+
+    setIsLoading(true)
 
     setPersistence(auth, browserSessionPersistence)
     .then(() => {
@@ -46,6 +51,7 @@ export default function LoginPage({
       const errorCode = error.code;
       const errorMessage = error.message;
     });
+    setIsLoading(false)
   }
 
   return (
@@ -115,12 +121,13 @@ export default function LoginPage({
                   <div className="mt-2 text-red-600">Invalid username/password. Please try again!.</div>}
             </div>
             <div>
-              <button
+              <StyledButton type="submit" loading={isLoading} text="Sign In"/>
+              {/* <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
-              </button>
+              </button> */}
             </div>
           </form>
 
