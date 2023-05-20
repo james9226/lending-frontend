@@ -42,7 +42,7 @@ export default function LoginPage({
       // Signed in 
       const user = userCredential.user;
       if (typeof window !== 'undefined') {
-        // router.push(redirectLink); 
+        router.push(redirectLink); 
       }
       // ...
     })
@@ -51,7 +51,7 @@ export default function LoginPage({
       const errorCode = error.code;
       const errorMessage = error.message;
     });
-    // setIsLoading(false)
+    setIsLoading(false)
   }
 
   return (

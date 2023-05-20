@@ -5,7 +5,7 @@ export default function StyledButton({loading, text, type}) {
         loading?  
 <button 
   type={type} 
-  className="flex items-center justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"  
+  className="flex w-full items-center justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"  
   disabled>
   <svg 
     className="mr-3 h-5 w-5 animate-spin text-white" 
