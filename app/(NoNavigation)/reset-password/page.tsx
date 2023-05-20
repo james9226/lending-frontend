@@ -17,7 +17,7 @@ searchParams?: { [key: string]: string | string[] | undefined };
   const [passwordsMatch, setPasswordsMatched] = useState(true);
   const [validationError, setValidationError] = useState(false);
   const router = useRouter();
-  const resetCode = searchParams.oobCode 
+  const resetCode = Array.isArray(searchParams.oobCode) ? searchParams.oobCode[0] : searchParams.oobCode;
 
   if (!resetCode) {
     redirect('/login')
