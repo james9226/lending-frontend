@@ -1,14 +1,29 @@
 "use client"
 
+import { useAuth } from "@context/authContext";
+import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function AccountButton() {
 
-    const [signedIn, setSignedIn] = useState(true);
     const [toggleDropdown, setToggleDropdown] = useState(false);
+    const user = useAuth();
 
-    return signedIn? (
+    function handleLogout() {
+
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
+      
+    }
+
+    
+
+    return user.user? (
         <div className='flex'>
         <button
           className='outline_btn'
@@ -27,17 +42,17 @@ export default function AccountButton() {
               My Profile
             </Link>
             <Link
-              href='/create-prompt'
+              href='/my-loans'
               className='dropdown_link'
               onClick={() => setToggleDropdown(false)}
             >
-              Create Prompt
+              My Loans
             </Link>
             <button
               type='button'
               onClick={() => {
                 setToggleDropdown(false);
-                setSignedIn(false);
+                handleLogout();
               }}
               className='mt-5 w-full black_btn'
             >
