@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { confirmPasswordReset, getAuth } from "firebase/auth"; 
 import { redirect, useRouter } from 'next/navigation';
 import ValidatePassword from "@domain/validators/password";
+import StyledButton from "@components/Button";
 
 export default function ResetPasswordPage({
 searchParams,
@@ -16,6 +17,7 @@ searchParams?: { [key: string]: string | string[] | undefined };
   const [retypedPassword, setRetypedPassword] = useState('');
   const [passwordsMatch, setPasswordsMatched] = useState(true);
   const [validationError, setValidationError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const resetCode = Array.isArray(searchParams.oobCode) ? searchParams.oobCode[0] : searchParams.oobCode;
 
@@ -39,6 +41,7 @@ searchParams?: { [key: string]: string | string[] | undefined };
     else {
         setValidationError(false)
         setPasswordsMatched(true)
+        setIsLoading(true)
         confirmPasswordReset(auth, resetCode, password)
         .then(() => {
             if (typeof window !== 'undefined') {
@@ -50,8 +53,9 @@ searchParams?: { [key: string]: string | string[] | undefined };
             const errorMessage = error.message;
           });
     
-
+      
     }
+    setIsLoading(false)
   }
 
   return (
@@ -118,12 +122,7 @@ searchParams?: { [key: string]: string | string[] | undefined };
                   <div className="mt-2 text-red-600">Passwords do not match. Please ensure you have entered the same password twice.</div>}
             </div>
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Change Password
-              </button>
+            <StyledButton type="submit" loading={isLoading} text="Change Password"/>
             </div>
           </form>
         </div>
