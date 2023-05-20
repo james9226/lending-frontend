@@ -33,6 +33,7 @@
       "@utils/*": ["utils/*"],
       "@app/*": ["app/*"],
       "@context/*": ["context/*"],
+      "@domain/*": ["domain/*"],
     },  
   },
   "include": [

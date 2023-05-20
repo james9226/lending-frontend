@@ -5,11 +5,17 @@ import { useState } from 'react';
 import { browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from "firebase/auth"; 
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
-  const [email, setEmail] = useState('');
+export default function LoginPage({
+  searchParams,
+  }: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+  }) {
+  
+    const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const router = useRouter();
+  const redirectLink = searchParams.redirect? searchParams.redirect : "/"
 
   function handleLogin(e) {
     e.preventDefault();
@@ -26,14 +32,16 @@ export default function LoginPage() {
       return signInWithEmailAndPassword(auth, email, password);
     })
     .then((userCredential) => {
+      setInvalidCredentials(false)
       // Signed in 
       const user = userCredential.user;
       if (typeof window !== 'undefined') {
-        router.push('/'); 
+        router.push(redirectLink); 
       }
       // ...
     })
     .catch((error) => {
+      setInvalidCredentials(true)
       const errorCode = error.code;
       const errorMessage = error.message;
     });
@@ -83,9 +91,9 @@ export default function LoginPage() {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-orange-600 hover:text-orange-500">
+                  <Link href="/forgot-password" className="font-semibold text-orange-600 hover:text-orange-500">
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -101,7 +109,10 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-
+            <div>
+              {invalidCredentials && 
+                  <div className="mt-2 text-red-600">Invalid username/password. Please try again!.</div>}
+            </div>
             <div>
               <button
                 type="submit"
