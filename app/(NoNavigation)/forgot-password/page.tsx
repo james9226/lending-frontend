@@ -17,11 +17,9 @@ export default function ForgotPasswordPage() {
     .then(() => {
         // Signed in 
         // ...
-        console.log('here')
         setEmailSent(true)
       })
       .catch((error) => {
-        console.log('hethre')
         setEmailSent(true)
         const errorCode = error.code;
         const errorMessage = error.message;
