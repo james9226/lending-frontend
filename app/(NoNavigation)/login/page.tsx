@@ -28,15 +28,12 @@ export default function LoginPage() {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log('Correct')
       if (typeof window !== 'undefined') {
         router.push('/'); 
       }
       // ...
     })
     .catch((error) => {
-      console.log(error)
-      console.log('Incorrect')
       const errorCode = error.code;
       const errorMessage = error.message;
     });
