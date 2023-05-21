@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/react';
 import "@styles/global.css";
 import { Providers } from "@app/providers";
 import BackgroundStyle from "@app/background";
@@ -36,6 +37,7 @@ export default function RootLayout({
           </Providers>
         </main>
         {/* <Footer /> */}
+        <Analytics/>
     </body>
   </html>
 );
