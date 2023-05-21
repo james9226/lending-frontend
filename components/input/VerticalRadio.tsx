@@ -16,7 +16,7 @@ export default function VerticalRadio( {settings, label} ) {
 
   return (
     <div>
-        <label className="block text-sm font-medium leading-6 space-y-2 text-gray-900">
+        <label className="block text-sm font-medium leading-6 space-y-2 py-2 text-gray-900">
             {label}
         </label>
     <RadioGroup value={selected} onChange={setSelected}>

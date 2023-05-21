@@ -17,20 +17,28 @@ const EmploymentStatus = [
 
 const ResidentialStatus = [
     { name: 'I rent', description: '' },
-    { name: 'I own my home', description: '' },
+    { name: 'I own my home with a mortgage', description: '' },
+    { name: 'I own my home without a mortgage', description: '' },
     { name: 'I live with my parents', description: '' },  
-    { name: 'I live in council housing', description: '' },  
     { name: 'Other', description: '' },  
 ]
 
+const LoanPurpose = [
+    { name: 'Home Improvements', description: '' },
+    { name: 'Debt Consolidation', description: '' },
+    { name: 'A Holiday', description: '' },  
+    { name: 'Other', description: '' },  
+]
+
+const ResidentialStatusesWithoutCosts = ['I own my home without a mortgage', 'I live with my parents']
 
 export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
 
     const [livedAtAddressMoreThanOneYearm, setlivedAtAddressMoreThanOneYearm] = useState(false)
     const [numberOfDependants, setNumberOfDependants] = useState("0")
+    const [residentialStatus, setResidentialStatus] = useState("I rent")
 
-    console.log(livedAtAddressMoreThanOneYearm)
-    console.log(numberOfDependants)
+    let needsHousingCosts = ResidentialStatusesWithoutCosts.includes(residentialStatus)?false:true;
 
     return (
         <form>
@@ -38,45 +46,51 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
         <div className="space-y-12">
 
         <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">About you</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Your loan</h2>
             <p className="mt-1 text-sm leading-6 text-gray-600"></p>
+            <div className="py-6">
+                <VerticalRadio label="What's your loan for?" settings ={LoanPurpose} />
+            </div>
+        </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-            <TextInput label="Email address" id="email" autoComplete="email" placeholder="you@email.com" spanType="col-span-4"/>
-            <TextInput label="Phone Number" id="phone-number" autoComplete="mobile-number" spanType="sm:col-span-2"/>
+            <div className="border-b border-gray-900/10 pb-12">
+  <h2 className="text-base font-semibold leading-7 text-gray-900">About you</h2>
+  <p className="mt-1 text-sm leading-6 text-gray-600"></p>
 
-            <TextInput label="Fist Name" id="first-name" autoComplete="given-name" spanType="sm:col-span-3"/>
-            <TextInput label="Last name" id="last-name" autoComplete="family-name" spanType="sm:col-span-3"/>
-            <div className="sm:col-span-3">
+  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+    <TextInput label="Email address" id="email" autoComplete="email" placeholder="you@email.com" spanType="sm:col-span-4"/>
+    <TextInput label="Phone Number" id="phone-number" autoComplete="mobile-number" spanType="sm:col-span-2"/>
+
+    <TextInput label="Fist Name" id="first-name" autoComplete="given-name" spanType="sm:col-span-3"/>
+    <TextInput label="Last name" id="last-name" autoComplete="family-name" spanType="sm:col-span-3"/>
+  </div>
+
+  <div className="sm:col-span-3 py-5">
       <label htmlFor='date-of-birth-group' className="block text-sm font-medium leading-6 text-gray-900">
-          Date of Birth
+        Date of Birth (DD/MM/YYYY)
       </label>
-      <div className="grid grid-cols-3 gap-6 mt-2">
-          <TextInput label="" id="day-of-birth" autoComplete="bday-day" placeholder="DD" spanType="sm:col-span-1"/>
-          <TextInput label="" id="month-of-birth" autoComplete="bday-month" placeholder="MM" spanType="sm:col-span-1"/>
-          <TextInput label="" id="year-of-birth" autoComplete="bday-year" placeholder="YYYY"spanType="sm:col-span-1"/>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
+        <TextInput label="" id="day-of-birth" autoComplete="bday-day" placeholder="DD" />
+        <TextInput label="" id="month-of-birth" autoComplete="bday-month" placeholder="MM" />
+        <TextInput label="" id="year-of-birth" autoComplete="bday-year" placeholder="YYYY" />
       </div>
     </div>
 
-            {/* <label htmlFor='date-of-birth-group' className="block text-sm font-medium leading-6 text-gray-900">
-                Hi
-            </label> */}
-                {/* <TextInput label="" id="day-of-birth" autoComplete="bday-day" placeholder="DD"spanType="sm:col-span-1"/>
-                <TextInput label="" id="month-of-birth" autoComplete="bday-month" placeholder="MM"spanType="sm:col-span-1"/>
-                <TextInput label="" id="year-of-birth" autoComplete="bday-year" placeholder="YYYY" spanType="sm:col-span-1"/> */}
-            </div>
-            </div>
+</div>
 
         <div className="border-b border-gray-900/10 pb-12">
         <h2 className="text-base font-semibold leading-7 text-gray-900">Where you live</h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">Use your current, permenant address.</p>
-        <div className="mx-auto justify-center w-1/2 mt-6 space-y-3">
-
+        {/* <div className="mx-auto justify-center w-1/2 mt-6 space-y-3"> */}
+        <div className="py-6">
             <DropDownSelection title="How long have you lived at your address?" options={['Less than one year', 'More than one year']} onChange={setlivedAtAddressMoreThanOneYearm}/>
             <VerticalRadio label="How do you pay for your home?" settings ={ResidentialStatus} />
+        </div>
 
-            </div>
+
+            {/* </div> */}
 
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -119,10 +133,12 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
                 <TextInput label="Employer Name" id="job-title" autoComplete="organization" spanType="sm:col-span-3"/>
                 
                 <TextInput label="Annual Income" id="income" autoComplete="" spanType="sm:col-span-2"/>
+                {needsHousingCosts && 
                 <TextInput label="Monthly Housing Costs" id="monthly-housing-costs" autoComplete="" spanType="sm:col-span-1"/>
+                }
                 <DropDownSelection title="Number of Dependants" onChange={setNumberOfDependants} options={["0", "1", "2", "3", "4", "5", "6+"]}/>
             </div>
-            <div className="w-1/2 mt-6 space-y-3">
+            <div className="py-6">
             <VerticalRadio label='Employment Status' settings ={EmploymentStatus} />
             </div>
 

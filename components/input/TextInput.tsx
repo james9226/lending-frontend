@@ -1,5 +1,5 @@
 
-export default function TextInput( { label, id, autoComplete, spanType, placeholder=""}) {
+export default function TextInput( { label, id, autoComplete, spanType="", placeholder=""}) {
     return (
     <div className={spanType} >
         <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">

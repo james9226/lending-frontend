@@ -13,7 +13,7 @@ export default function LoginPage({
   searchParams?: { [key: string]: string | string[] | undefined };
   }) {
   
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -123,22 +123,13 @@ export default function LoginPage({
             </div>
             <div>
               <StyledButton type="submit" loading={isLoading} text="Sign In"/>
-              {/* <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button> */}
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <Link href='/' className="font-semibold leading-6 text-orange-600 hover:text-orang-500">Checkout what we have to offer!
+            <Link href='/' className="font-semibold leading-6 text-orange-600 hover:text-orang-500">Check out what we have to offer!
             </Link>
-            {/* <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Checkout what we have to offer!
-            </a> */}
           </p>
         </div>
       </div>
