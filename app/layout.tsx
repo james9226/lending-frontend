@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import "@styles/global.css";
 import { Providers } from "@app/providers";
 import BackgroundStyle from "@app/background";
+import { Suspense } from "react";
+import PrivacyNotice from "@components/privacy/PrivacyNoticeSSR";
 export const metadata: Metadata = {
   title: 'Lendotopia',
   description: 'A new way of doing banking!',
@@ -26,6 +28,10 @@ export default function RootLayout({
           <Providers>
             <BackgroundStyle>
           {children}
+          <Suspense fallback={<div></div>}>
+            {/* @ts-expect-error Server Component */}
+          <PrivacyNotice />
+          </Suspense>
             </BackgroundStyle>
           </Providers>
         </main>
@@ -33,4 +39,4 @@ export default function RootLayout({
     </body>
   </html>
 );
-}
+  }
