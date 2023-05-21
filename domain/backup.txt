@@ -1,0 +1,29 @@
+
+function RootLayout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return (
+      <html lang='en'>
+        
+      <body>
+          <div className='main'>
+            <div className='gradient' />
+          </div>
+          <main className='app'>
+            <Providers>
+              <BackgroundStyle>
+            {children}
+            {/* <Suspense fallback={<div></div>}> */}
+              {/* @ts-expect-error Server Component */}
+            {/* <PrivacyNotice />
+            </Suspense> */}
+              </BackgroundStyle>
+            </Providers>
+          </main>
+          {/* <Footer /> */}
+      </body>
+    </html>
+  );
+  }

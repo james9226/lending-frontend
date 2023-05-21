@@ -7,11 +7,11 @@ export default async function PrivacyNotice() {
   const cookieStore = cookies();
   const cookie = cookieStore.get('lendotopiaCookiePreferences')
 
-    return (cookie)? 
+    return cookie? 
     (
         <div></div>
     ):(
-          <PrivacyOptions />
+      <PrivacyOptions />
     )
   }
   
