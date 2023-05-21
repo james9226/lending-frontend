@@ -3,7 +3,7 @@ export enum ResidentialStatus {
     LIVING_WITH_PARENTS = "living_with_parents",
     OWNER_WITH_MORTGAGE = "owner_with_mortgage",
     OWNER_WITHOUT_MORTGAGE = "owner_without_mortgage",
-    COUNCIL_HOUSING = "council_housing"
+    OTHER = "other"
   }
 
 export enum EmploymentStatus {
@@ -20,5 +20,4 @@ export enum MaritalStatus {
   CIVIL_PARTNERSHIP = "civil_partnership",
   COHABITING_WITH_PARTNER = "cohabiting_with_partner",
   NOT_MARRIED = "not_married"
-
 }

@@ -5,6 +5,7 @@ import VerticalRadio from "@components/input/VerticalRadio"
 import StyledButton from "./Button"
 import { useState } from "react"
 import DropDownSelection from "./DropDownSelection"
+import AddressInput from "./input/AddressInput"
 
 const EmploymentStatus = [
     { name: 'Full-time employed', description: '' },
@@ -37,8 +38,30 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
     const [livedAtAddressMoreThanOneYearm, setlivedAtAddressMoreThanOneYearm] = useState(false)
     const [numberOfDependants, setNumberOfDependants] = useState("0")
     const [residentialStatus, setResidentialStatus] = useState("I rent")
+    const [currentAddress, setCurrentAddress] = useState({
+        address_line_one : "",
+        city : "",
+        county : "",
+        postcode : "",
+        move_in_month : "",
+        move_in_year : "",
+    });
+    const [pastAddress, setPastAddress] = useState({
+        address_line_one : "",
+        city : "",
+        county : "",
+        postcode : "",
+        move_in_month : "",
+        move_in_year : "",
+    });
 
-    const needsHousingCosts = ResidentialStatusesWithoutCosts.includes(residentialStatus)?false:true;
+    const needsHousingCosts = !ResidentialStatusesWithoutCosts.includes(residentialStatus);
+
+    const date = new Date()
+    console.log(currentAddress)
+
+    console.log(parseInt(currentAddress.move_in_year) * 12 + parseInt(currentAddress.move_in_month) + 12)
+    const needsPastAddress = parseInt(currentAddress.move_in_year) * 12 + parseInt(currentAddress.move_in_month) + 12 > date.getMonth() + date.getFullYear() * 12 
 
     return (
         <form>
@@ -80,48 +103,13 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
 
 </div>
 
-        <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">Where you live</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">Use your current, permenant address.</p>
-        {/* <div className="mx-auto justify-center w-1/2 mt-6 space-y-3"> */}
-        <div className="py-6">
-            <DropDownSelection title="How long have you lived at your address?" options={['Less than one year', 'More than one year']} onChange={setlivedAtAddressMoreThanOneYearm}/>
-            <VerticalRadio label="How do you pay for your home?" settings ={ResidentialStatus} />
-        </div>
+        <AddressInput index="0" title="Where you live" subtitle="Use your current, permenant address." onChange={setCurrentAddress}/>
 
-
-            {/* </div> */}
-
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-            <TextInput label="Street Address" id="street-address" autoComplete="street-address" spanType="col-span-full"/>
-            <TextInput label="City" id="city" autoComplete="address-level2" spanType="sm:col-span-2"/>
-            <TextInput label="County" id="region" autoComplete="address-level1" spanType="sm:col-span-2"/>
-            <TextInput label="Postcode" id="postcode" autoComplete="postal-code" spanType="sm:col-span-2"/>
-
-
-
-            </div>
-        </div>
-
-
-        <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">Your previous address</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">Use the last, permenant address you lived at.</p>
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-            <TextInput label="Street Address" id="street-address" autoComplete="street-address" spanType="col-span-full"/>
-            <TextInput label="City" id="city" autoComplete="address-level2" spanType="sm:col-span-2"/>
-            <TextInput label="County" id="region" autoComplete="address-level1" spanType="sm:col-span-2"/>
-            <TextInput label="Postcode" id="postcode" autoComplete="postal-code" spanType="sm:col-span-2"/>
-
-
-
-            </div>
-        </div>
-
+        {needsPastAddress &&
+        <AddressInput index="1" title="Your previous address" subtitle="As you recently moved, we need your last address"onChange={setPastAddress}/>
+}
         <div className="border-b border-gray-900/10 pb-12" >
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Your finances</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Your income</h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
             If you know that your income is set to decrease in the future, you should use that figure.
             </p>
@@ -133,16 +121,31 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
                 <TextInput label="Employer Name" id="job-title" autoComplete="organization" spanType="sm:col-span-3"/>
                 
                 <TextInput label="Annual Income" id="income" autoComplete="" spanType="sm:col-span-2"/>
-                {needsHousingCosts && 
-                <TextInput label="Monthly Housing Costs" id="monthly-housing-costs" autoComplete="" spanType="sm:col-span-1"/>
-                }
-                <DropDownSelection title="Number of Dependants" onChange={setNumberOfDependants} options={["0", "1", "2", "3", "4", "5", "6+"]}/>
             </div>
             <div className="py-6">
             <VerticalRadio label='Employment Status' settings ={EmploymentStatus} />
             </div>
 
         </div>
+        <div className="border-b border-gray-900/10 pb-12" >
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Your expenditure</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+            If you know that your spending is set to increase in the future, you should use that figure.
+            </p>
+            <div className="py-6">
+            {/* <DropDownSelection title="How long have you lived at your address?" options={['Less than one year', 'More than one year']} onChange={setlivedAtAddressMoreThanOneYearm}/> */}
+            <VerticalRadio label="How do you pay for your home?" settings ={ResidentialStatus} />
+            </div>
+
+
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                {needsHousingCosts && 
+                <TextInput label="Monthly Housing Costs" id="monthly-housing-costs" autoComplete="" spanType="sm:col-span-1"/>
+                }
+                <DropDownSelection title="Number of Dependants" onChange={setNumberOfDependants} options={["0", "1", "2", "3", "4", "5", "6+"]}/>
+            </div>
+        </div>
+
 
 
         <div className="border-b border-gray-900/10 pb-12">
