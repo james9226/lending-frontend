@@ -22,8 +22,8 @@ else if (loanTermInMonths < 12 || loanTermInMonths > 36) {
 
 return (
     <div>
-                <h2 className="text-base font-semibold leading-7 text-gray-900"> You are applying for a loan of 
-    <span className='orange_gradient text-center test-xl font-semibold'> £{loanAmount}</span>
+    <h2 className="text-base font-semibold leading-7 text-gray-900"> You are applying for a loan of 
+    <span className='orange_gradient text-center test-xl font-semibold'> £{loanAmount}  </span>
         over 
     <span className='orange_gradient text-center test-xl font-semibold'> {loanTermInMonths}  </span>
     months!
