@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from "firebase/auth"; 
 import { useRouter } from 'next/navigation';
 import StyledButton from "@components/Button";
+import RedAlert from "@components/Alert";
 
 export default function LoginPage({
   searchParams,
@@ -118,7 +119,7 @@ export default function LoginPage({
             </div>
             <div>
               {invalidCredentials && 
-                  <div className="mt-2 text-red-600">Invalid username/password. Please try again!.</div>}
+                  <RedAlert title="Invalid username/password. Please try again!" />}
             </div>
             <div>
               <StyledButton type="submit" loading={isLoading} text="Sign In"/>

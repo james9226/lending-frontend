@@ -6,6 +6,7 @@ import { confirmPasswordReset, getAuth } from "firebase/auth";
 import { redirect, useRouter } from 'next/navigation';
 import ValidatePassword from "@domain/validators/password";
 import StyledButton from "@components/Button";
+import RedAlert from "@components/Alert";
 
 export default function ResetPasswordPage({
 searchParams,
@@ -117,9 +118,9 @@ searchParams?: { [key: string]: string | string[] | undefined };
             </div>
             <div>
               {validationError && 
-                  <div className="mt-2 text-red-600">Invalid password. Please try again with a valid password.</div>}
+                  <RedAlert title="Invalid password. Please try again with a valid password." />}
               {!passwordsMatch && 
-                  <div className="mt-2 text-red-600">Passwords do not match. Please ensure you have entered the same password twice.</div>}
+                  <RedAlert title="Passwords do not match. Please ensure you have entered the same password twice."/>}
             </div>
             <div>
             <StyledButton type="submit" loading={isLoading} text="Change Password"/>

@@ -28,8 +28,10 @@ return (
     <span className='orange_gradient text-center test-xl font-semibold'> {loanTermInMonths}  </span>
     months!
     </h2>
+    <div className='py-8'>
 
-    <LoanApplicationForm loanAmount={loanAmount} loanTermInMonths={loanTermInMonths}/>
+        <LoanApplicationForm loanAmount={loanAmount} loanTermInMonths={loanTermInMonths}/>
+    </div>
     </div>
 );
 }
