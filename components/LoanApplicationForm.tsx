@@ -38,7 +38,7 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
     const [numberOfDependants, setNumberOfDependants] = useState("0")
     const [residentialStatus, setResidentialStatus] = useState("I rent")
 
-    let needsHousingCosts = ResidentialStatusesWithoutCosts.includes(residentialStatus)?false:true;
+    const needsHousingCosts = ResidentialStatusesWithoutCosts.includes(residentialStatus)?false:true;
 
     return (
         <form>
