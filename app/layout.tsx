@@ -3,6 +3,7 @@ import "@styles/global.css";
 import { Providers } from "@app/providers";
 import BackgroundStyle from "@app/background";
 import PrivacyNotice from "@components/privacy/PrivacyNoticeSSR";
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Lendotopia',
@@ -28,8 +29,10 @@ export default function RootLayout({
           <Providers>
             <BackgroundStyle>
           {children}
-          {/* @ts-expect-error Server Component */}
-            <PrivacyNotice />
+          <Suspense fallback={<div></div>}>
+            {/* @ts-expect-error Server Component */}
+          <PrivacyNotice />
+          </Suspense>
             </BackgroundStyle>
           </Providers>
         </main>
