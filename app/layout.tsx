@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import "@styles/global.css";
 import { Providers } from "@app/providers";
+import BackgroundStyle from "@app/background";
+import PrivacyNotice from "@components/privacy/PrivacyNoticeSSR";
 
 export const metadata: Metadata = {
   title: 'Lendotopia',
@@ -17,13 +19,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
+      
     <body>
         <div className='main'>
           <div className='gradient' />
         </div>
         <main className='app'>
           <Providers>
+            <BackgroundStyle>
           {children}
+          {/* @ts-expect-error Server Component */}
+            <PrivacyNotice />
+            </BackgroundStyle>
           </Providers>
         </main>
         {/* <Footer /> */}

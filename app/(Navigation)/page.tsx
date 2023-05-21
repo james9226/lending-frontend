@@ -1,5 +1,4 @@
 import LoanSlider from "@components/Sliders";
-import VerticalSpacer from "@components/VerticalSpacer";
 
 export default function HomePage() {
 
@@ -15,8 +14,9 @@ export default function HomePage() {
     <p className='desc text-center'>
       Lendotopia is a demo site providing a fake (simulated) loan application!
     </p>
-          <VerticalSpacer height={8} /> 
-    <LoanSlider />
+    <div className="py">
+      <LoanSlider />
+    </div>
   </section>
 );
 }
