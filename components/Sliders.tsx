@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import StyledButton from "./Button";
 
 export default function LoanSlider() {
     const [loanAmount, setLoanAmount] = useState(5000);
@@ -40,13 +41,16 @@ export default function LoanSlider() {
             <p className="mt-1 text-sm leading-6 text-gray-600">
             Representative APR of 19.9%. The rate you are offered will depend on your individual circumstances.
             </p>
-            <button
-                className='outline_btn'
-                onClick={() => router.push('/apply?amount=' + loanAmount + '&term=' + loanTermInMonths)}
-            >
-                See my rates!
-            </button>
-
+            <div className="py-4 flex justify-center">
+                <form className="space-y-6" onSubmit={(e) => {
+                    router.push('/apply?amount=' + loanAmount + '&term=' + loanTermInMonths)
+                    e.preventDefault();
+                }}>
+                <StyledButton
+                        type='submit'
+                        text='See what you could get' loading={false} />
+                </form>
+            </div>
         </div>
     );
 }

@@ -35,7 +35,6 @@ const ResidentialStatusesWithoutCosts = ['I own my home without a mortgage', 'I 
 
 export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
 
-    const [livedAtAddressMoreThanOneYearm, setlivedAtAddressMoreThanOneYearm] = useState(false)
     const [numberOfDependants, setNumberOfDependants] = useState("0")
     const [residentialStatus, setResidentialStatus] = useState("I rent")
     const [currentAddress, setCurrentAddress] = useState({
@@ -106,7 +105,9 @@ export default function LoanApplicationForm({loanAmount, loanTermInMonths}) {
         <AddressInput index="0" title="Where you live" subtitle="Use your current, permenant address." onChange={setCurrentAddress}/>
 
         {needsPastAddress &&
+        <div className="transition-all">
         <AddressInput index="1" title="Your previous address" subtitle="As you recently moved, we need your last address"onChange={setPastAddress}/>
+        </div>
 }
         <div className="border-b border-gray-900/10 pb-12" >
             <h2 className="text-base font-semibold leading-7 text-gray-900">Your income</h2>
