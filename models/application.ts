@@ -2,12 +2,12 @@ import { ResidentialStatus, EmploymentStatus, MaritalStatus } from "@enums/appli
 import { Country } from "@enums/countries";
 
 export interface Address {
-    readonly address_line_one : string,
-    readonly address_line_two : string,
-    readonly country : Country, // TODO - replace with ENUM
-    readonly city : string, 
-    readonly postcode : string,
-    readonly move_in_date : Date,
+    address_line_one : string,
+    country : Country, // TODO - replace with ENUM
+    city : string, 
+    postcode : string,
+    move_in_month : string,
+    move_in_year : string,
 }
 
 
