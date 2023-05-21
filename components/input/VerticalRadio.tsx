@@ -30,7 +30,7 @@ export default function VerticalRadio( {settings, label} ) {
               classNames(
                 settingIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                 settingIdx === settings.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
-                checked ? 'z-10 border-orange-200 bg-orange-50' : 'border-gray-200',
+                checked ? ' border-orange-200 bg-orange-50' : 'border-gray-200',
                 'relative flex cursor-pointer border p-4 focus:outline-none'
               )
             }
