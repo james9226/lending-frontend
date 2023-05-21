@@ -8,8 +8,8 @@ export default function AddressInput({index, title, subtitle, onChange}) {
         city : "",
         county : "",
         postcode : "",
-        move_in_month : 0,
-        move_in_year : 0,
+        move_in_month : "",
+        move_in_year : "",
     })
 
     function handleAddressUpdate(fieldId, value) {
@@ -23,6 +23,8 @@ export default function AddressInput({index, title, subtitle, onChange}) {
         onChange(address);
       }, [address]);
       
+      const date = new Date()
+      const AddressInFuture = parseInt(address.move_in_year) * 12 + parseInt(address.move_in_month) > date.getFullYear() * 12 + date.getMonth()
 
     return (
 
@@ -34,7 +36,7 @@ export default function AddressInput({index, title, subtitle, onChange}) {
 
         <TextInput label="Street Address" id="street-address" 
         onChange={(value) => handleAddressUpdate("address_line_one", value)} 
-        autoComplete="street-address" 
+        autoComplete="address-line3" 
         spanType="col-span-full" />
         <TextInput label="City" id="city" onChange={(value) => handleAddressUpdate("city", value)} autoComplete="address-level2" spanType="sm:col-span-2"/>
         <TextInput label="County" id="region" onChange={(value) => handleAddressUpdate("county", value)}  autoComplete="address-level1" spanType="sm:col-span-2"/>
@@ -53,6 +55,7 @@ export default function AddressInput({index, title, subtitle, onChange}) {
     autoComplete="" 
     placeholder="MM"
     type="tel" 
+    errored={AddressInFuture}
     />
     <TextInput label="" 
     id="current-address-move-in-year" 
@@ -60,6 +63,7 @@ export default function AddressInput({index, title, subtitle, onChange}) {
     autoComplete="" 
     placeholder="YYYY" 
     type="tel"
+    errored={AddressInFuture}
     />
   </div>
 </div>
