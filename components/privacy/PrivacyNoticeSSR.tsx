@@ -1,4 +1,3 @@
-
 import PrivacyOptions from './PrivacyOptionsClient';
 import { cookies } from 'next/headers';
 
@@ -11,7 +10,7 @@ export default async function PrivacyNotice() {
     (
         <div></div>
     ):(
-      <PrivacyOptions />
+        <PrivacyOptions />
     )
   }
   
